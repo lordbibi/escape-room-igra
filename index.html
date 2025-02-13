@@ -1,78 +1,62 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="sl">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.3">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Room Uganke</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="sl"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Escape Room Uganke&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: Arial, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input, button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#message {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Escape Room Uganke&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Vnesite odgovor:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="text" id="answerInput" placeholder="Vaš odgovor"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="checkAnswer()"&gt;Preveri&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="message"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Pravilni odgovori (lahko so v katerikoli obliki velikih/malih črk)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const correctAnswers = ["odgovor1", "odgovor2", "odgovor3", "odgovor4", "odgovor5", "odgovor6", "odgovor7"];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let foundAnswers = [];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function checkAnswer() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Preberi vnešeni odgovor in ga pretvori v male črke</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const messageElement = document.getElementById("message");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Preveri, ali je odgovor že bil pravilno vnešen</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (foundAnswers.includes(userAnswer)) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>messageElement.textContent = "Ta odgovor je že bil pravilno vnešen.";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// Preveri, ali je odgovor pravilen</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (correctAnswers.includes(userAnswer)) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>foundAnswers.push(userAnswer); // Dodaj odgovor na seznam najdenih odgovorov</p>
-<p class="p1"><span class="Apple-converted-space">                </span>messageElement.textContent = "Pravilno! Odgovor je bil zabeležen.";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById("answerInput").value = ""; // Počisti polje za vnos</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Preveri, ali so vsi odgovori pravilno vnešeni</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (foundAnswers.length === correctAnswers.length) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>messageElement.textContent = "Čestitamo! Rešili ste vse uganke!";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>messageElement.textContent = "Napačen odgovor, poskusi znova!";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <h1>Escape Room Uganke</h1>
+    <p>Vnesite odgovor:</p>
+    <input type="text" id="answerInput" placeholder="Vaš odgovor">
+    <button onclick="checkAnswer()">Preveri</button>
+    <div id="message"></div>
+
+    <script>
+        // Pravilni odgovori (lahko so v katerikoli obliki velikih/malih črk)
+        const correctAnswers = ["odgovor1", "odgovor2", "odgovor3", "odgovor4", "odgovor5", "odgovor6", "odgovor7"];
+        let foundAnswers = [];
+
+        function checkAnswer() {
+            // Preberi vnešeni odgovor in ga pretvori v male črke
+            const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
+            const messageElement = document.getElementById("message");
+
+            // Preveri, ali je odgovor že bil pravilno vnešen
+            if (foundAnswers.includes(userAnswer)) {
+                messageElement.textContent = "Ta odgovor je že bil pravilno vnešen.";
+                return;
+            }
+
+            // Preveri, ali je odgovor pravilen
+            if (correctAnswers.includes(userAnswer)) {
+                foundAnswers.push(userAnswer); // Dodaj odgovor na seznam najdenih odgovorov
+                messageElement.textContent = "Pravilno! Odgovor je bil zabeležen.";
+                document.getElementById("answerInput").value = ""; // Počisti polje za vnos
+
+                // Preveri, ali so vsi odgovori pravilno vnešeni
+                if (foundAnswers.length === correctAnswers.length) {
+                    messageElement.textContent = "Čestitamo! Rešili ste vse uganke!";
+                }
+            } else {
+                messageElement.textContent = "Napačen odgovor, poskusi znova!";
+            }
+        }
+    </script>
 </body>
 </html>
