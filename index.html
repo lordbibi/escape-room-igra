@@ -114,7 +114,7 @@
         function playHintSound() {
             audio.play();
             //alert("Pogledajte namig!");
-            messageElement.textContent = "Uporabi namig!";
+            
         }
 
         function updateTimer() {
@@ -128,6 +128,7 @@
                 // Predvajaj zvok ob določenih intervalih za trenutno igro
                 if (hintIntervals[currentGame].includes(3600 - timeInSeconds)) {
                     playHintSound();
+                    messageElement.textContent = "Uporabi namig!";
                 }
             } else {
                 clearInterval(timerInterval);
