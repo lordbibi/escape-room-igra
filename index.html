@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escape Room Uganke Jo</title>
+    <title>Escape Room Uganke</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,9 +75,9 @@
 
         const hintIntervals = {
             game1: [10, 900, 1500], // Namigi pri 5, 15 in 25 minutah
-            game2: [600, 1200, 1800], // Namigi pri 10, 20 in 30 minutah
-            game3: [450, 1350, 2250], // Namigi pri 7.5, 22.5 in 37.5 minutah
-            game4: [900, 1800, 2700]  // Namigi pri 15, 30 in 45 minutah
+            game2: [15, 1200, 1800], // Namigi pri 10, 20 in 30 minutah
+            game3: [20, 1350, 2250], // Namigi pri 7.5, 22.5 in 37.5 minutah
+            game4: [25, 1800, 2700]  // Namigi pri 15, 30 in 45 minutah
         };
 
         let foundAnswers = [];
@@ -128,7 +128,13 @@
                 // Predvajaj zvok ob določenih intervalih za trenutno igro
                 if (hintIntervals[currentGame].includes(3600 - timeInSeconds)) {
                     playHintSound();
-                    document.getElementById("message").textContent = "Uporabi namig!";
+                    const messageElement = document.getElementById("message");
+                    messageElement.textContent = "Uporabi namig!";
+                    
+                    // Po 20 sekundah izbriši besedilo
+                    setTimeout(() => {
+                        messageElement.textContent = "";
+                    }, 10000);
                 }
             } else {
                 clearInterval(timerInterval);
