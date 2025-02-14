@@ -73,12 +73,24 @@
             game4: ["odgovor1d", "odgovor2d", "odgovor3d", "odgovor4d", "odgovor5d", "odgovor6d", "odgovor7d"]
         };
 
+        const hintIntervals = {
+            game1: [300, 900, 1500], // Namigi pri 5, 15 in 25 minutah
+            game2: [600, 1200, 1800], // Namigi pri 10, 20 in 30 minutah
+            game3: [450, 1350, 2250], // Namigi pri 7.5, 22.5 in 37.5 minutah
+            game4: [900, 1800, 2700]  // Namigi pri 15, 30 in 45 minutah
+        };
+
         let foundAnswers = [];
         let currentGame = "game1";
         let timeInSeconds = 60 * 60;
         let timerInterval;
         const timerElement = document.getElementById("timer");
-        const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/3005/3005-preview.mp3");
+        //const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/3005/3005-preview.mp3");
+        //https://assets.mixkit.co/active_storage/sfx/3003/3003-preview.mp3
+        //https://assets.mixkit.co/active_storage/sfx/3002/3002-preview.mp3
+        //https://assets.mixkit.co/active_storage/sfx/3001/3001-preview.mp3
+        //https://opengameart.org/sites/default/files/bell.mp3
+        const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/3002/3002-preview.mp3");
 
         function resetTimer() {
             clearInterval(timerInterval);
@@ -112,8 +124,8 @@
             if (timeInSeconds > 0) {
                 timeInSeconds--;
                 
-                // Predvajaj zvok točno na vsakih 10 minut
-                if (timeInSeconds % 600 === 0) {
+                // Predvajaj zvok ob določenih intervalih za trenutno igro
+                if (hintIntervals[currentGame].includes(3600 - timeInSeconds)) {
                     playHintSound();
                 }
             } else {
