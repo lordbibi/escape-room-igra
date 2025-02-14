@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escape Room Uganke New</title>
+    <title>Escape Room Uganke</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,12 +31,34 @@
             width: 150px;
             margin-bottom: 20px;
         }
+        .game-options {
+            margin-bottom: 20px;
+        }
+        .game-options label {
+            margin-right: 15px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
-    <!-- Logotip -->
     <img id="logo" src="https://via.placeholder.com/150" alt="Escape Room Logo">
     <h1>Escape Room Uganke</h1>
+
+    <div class="game-options">
+        <label>
+            <input type="radio" name="game" value="game1" checked> Igra 1
+        </label>
+        <label>
+            <input type="radio" name="game" value="game2"> Igra 2
+        </label>
+        <label>
+            <input type="radio" name="game" value="game3"> Igra 3
+        </label>
+        <label>
+            <input type="radio" name="game" value="game4"> Igra 4
+        </label>
+    </div>
+
     <p>Vnesite odgovor:</p>
     <input type="text" id="answerInput" placeholder="Vaš odgovor">
     <button onclick="checkAnswer()">Preveri</button>
@@ -44,63 +66,81 @@
     <div id="timer">60:00</div>
 
     <script>
-        // Pravilni odgovori (lahko so v katerikoli obliki velikih/malih črk)
-        const correctAnswers = ["odgovor1", "odgovor2", "odgovor3", "odgovor4", "odgovor5", "odgovor6", "odgovor7"];
+        const correctAnswers = {
+            game1: ["odgovor1a", "odgovor2a", "odgovor3a", "odgovor4a", "odgovor5a", "odgovor6a", "odgovor7a"],
+            game2: ["odgovor1b", "odgovor2b", "odgovor3b", "odgovor4b", "odgovor5b", "odgovor6b", "odgovor7b"],
+            game3: ["odgovor1c", "odgovor2c", "odgovor3c", "odgovor4c", "odgovor5c", "odgovor6c", "odgovor7c"],
+            game4: ["odgovor1d", "odgovor2d", "odgovor3d", "odgovor4d", "odgovor5d", "odgovor6d", "odgovor7d"]
+        };
+
         let foundAnswers = [];
-
-        // Countdown timer
-        let timeInSeconds = 60 * 60; // 60 minut v sekundah
+        let currentGame = "game1";
+        let timeInSeconds = 60 * 60;
+        let timerInterval;
         const timerElement = document.getElementById("timer");
+        const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/3005/3005-preview.mp3");
 
-        // Zvočni signal
-        const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/3005/3005-preview.mp3"); // Zamenjajte s svojo zvočno datoteko
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeInSeconds = 60 * 60;
+            timerElement.textContent = "60:00";
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function updateGame() {
+            currentGame = document.querySelector('input[name="game"]:checked').value;
+            foundAnswers = [];
+            document.getElementById("message").textContent = "";
+            document.getElementById("answerInput").value = "";
+            resetTimer();
+        }
+
+        document.querySelectorAll('input[name="game"]').forEach(radio => {
+            radio.addEventListener("change", updateGame);
+        });
 
         function playHintSound() {
             audio.play();
             alert("Pogledajte namig!");
         }
 
-        // Nastavitev intervala za zvočni signal vsakih 10 minut
-        const hintInterval = setInterval(playHintSound, 10 * 60 * 1000);
-
         function updateTimer() {
             const minutes = Math.floor(timeInSeconds / 60);
             const seconds = timeInSeconds % 60;
             timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-            if (timeInSeconds <= 0) {
+            if (timeInSeconds > 0) {
+                timeInSeconds--;
+                
+                // Predvajaj zvok točno na vsakih 10 minut
+                if (timeInSeconds % 600 === 0) {
+                    playHintSound();
+                }
+            } else {
                 clearInterval(timerInterval);
-                clearInterval(hintInterval); // Ustavi zvočni signal
                 timerElement.textContent = "Čas je potekel!";
                 alert("Čas je potekel! Poskusite znova.");
-            } else {
-                timeInSeconds--;
             }
         }
 
-        const timerInterval = setInterval(updateTimer, 1000);
+        timerInterval = setInterval(updateTimer, 1000);
 
         function checkAnswer() {
-            // Preberi vnešeni odgovor in ga pretvori v male črke
             const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
             const messageElement = document.getElementById("message");
 
-            // Preveri, ali je odgovor že bil pravilno vnešen
             if (foundAnswers.includes(userAnswer)) {
                 messageElement.textContent = "Ta odgovor je že bil pravilno vnešen.";
                 return;
             }
 
-            // Preveri, ali je odgovor pravilen
-            if (correctAnswers.includes(userAnswer)) {
-                foundAnswers.push(userAnswer); // Dodaj odgovor na seznam najdenih odgovorov
+            if (correctAnswers[currentGame].includes(userAnswer)) {
+                foundAnswers.push(userAnswer);
                 messageElement.textContent = "Pravilno! Odgovor je bil zabeležen.";
-                document.getElementById("answerInput").value = ""; // Počisti polje za vnos
+                document.getElementById("answerInput").value = "";
 
-                // Preveri, ali so vsi odgovori pravilno vnešeni
-                if (foundAnswers.length === correctAnswers.length) {
-                    clearInterval(timerInterval); // Ustavi štoparico
-                    clearInterval(hintInterval); // Ustavi zvočni signal
+                if (foundAnswers.length === correctAnswers[currentGame].length) {
+                    clearInterval(timerInterval);
                     messageElement.textContent = "Čestitamo! Rešili ste vse uganke!";
                     timerElement.textContent = "Čestitamo! Čas: " + timerElement.textContent;
                 }
