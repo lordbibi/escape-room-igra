@@ -74,7 +74,7 @@
         };
 
         const hintIntervals = {
-            game1: [300, 900, 1500], // Namigi pri 5, 15 in 25 minutah
+            game1: [60, 900, 1500], // Namigi pri 5, 15 in 25 minutah
             game2: [600, 1200, 1800], // Namigi pri 10, 20 in 30 minutah
             game3: [450, 1350, 2250], // Namigi pri 7.5, 22.5 in 37.5 minutah
             game4: [900, 1800, 2700]  // Namigi pri 15, 30 in 45 minutah
@@ -113,7 +113,8 @@
 
         function playHintSound() {
             audio.play();
-            alert("Pogledajte namig!");
+            //alert("Pogledajte namig!");
+            messageElement.textContent = "Uporabi namig!";
         }
 
         function updateTimer() {
