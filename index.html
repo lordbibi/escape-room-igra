@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escape Room Uganke</title>
+    <title>Escape Room Uganke New</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background-color: #f4f4f4;
         }
         input, button {
             padding: 10px;
             font-size: 16px;
+            margin-top: 10px;
         }
         #message {
             margin-top: 20px;
             font-weight: bold;
+            color: #333;
         }
         #timer {
             font-size: 24px;
@@ -24,9 +27,15 @@
             margin-top: 20px;
             color: red;
         }
+        #logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
+    <!-- Logotip -->
+    <img id="logo" src="https://via.placeholder.com/150" alt="Escape Room Logo">
     <h1>Escape Room Uganke</h1>
     <p>Vnesite odgovor:</p>
     <input type="text" id="answerInput" placeholder="Vaš odgovor">
@@ -40,8 +49,19 @@
         let foundAnswers = [];
 
         // Countdown timer
-        let timeInSeconds = 60 * 60; // 60 minutes in seconds
+        let timeInSeconds = 60 * 60; // 60 minut v sekundah
         const timerElement = document.getElementById("timer");
+
+        // Zvočni signal
+        const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/3005/3005-preview.mp3"); // Zamenjajte s svojo zvočno datoteko
+
+        function playHintSound() {
+            audio.play();
+            alert("Pogledajte namig!");
+        }
+
+        // Nastavitev intervala za zvočni signal vsakih 10 minut
+        const hintInterval = setInterval(playHintSound, 10 * 60 * 1000);
 
         function updateTimer() {
             const minutes = Math.floor(timeInSeconds / 60);
@@ -50,6 +70,7 @@
 
             if (timeInSeconds <= 0) {
                 clearInterval(timerInterval);
+                clearInterval(hintInterval); // Ustavi zvočni signal
                 timerElement.textContent = "Čas je potekel!";
                 alert("Čas je potekel! Poskusite znova.");
             } else {
@@ -79,6 +100,7 @@
                 // Preveri, ali so vsi odgovori pravilno vnešeni
                 if (foundAnswers.length === correctAnswers.length) {
                     clearInterval(timerInterval); // Ustavi štoparico
+                    clearInterval(hintInterval); // Ustavi zvočni signal
                     messageElement.textContent = "Čestitamo! Rešili ste vse uganke!";
                     timerElement.textContent = "Čestitamo! Čas: " + timerElement.textContent;
                 }
