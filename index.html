@@ -105,12 +105,17 @@
             document.getElementById("message").textContent = "";
             document.getElementById("answerInput").value = "";
             resetTimer();
+            resetHintTimers();
         }
 
         document.querySelectorAll('input[name="game"]').forEach(radio => {
             radio.addEventListener("change", updateGame);
         });
 
+        function resetHintTimers() {
+        timeInSeconds = 60 * 60;
+        }        
+        
         function playHintSound() {
             audio.play();
             //alert("Pogledajte namig!");
